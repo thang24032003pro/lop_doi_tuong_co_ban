@@ -386,31 +386,15 @@
       position: absolute;
       width: 260px;
       height: 260px;
-      /* soft gradient and rounded card look */
-      background: linear-gradient(180deg, rgba(255,143,112,0.96), rgba(255,123,100,0.92));
-      border-radius: 20px;
-      border: 6px solid rgba(255,255,255,0.92);
+      background: rgba(255, 143, 112, 0.92);
+      border: 3px solid #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 60px;
       color: white;
-      box-shadow: 0 18px 40px rgba(120,55,35,0.12), inset 0 6px 12px rgba(255,255,255,0.22);
-      transition: filter 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
-      overflow: hidden;
-    }
-
-    /* subtle inner highlight to mimic glossy card edge */
-    .face::after {
-      content: "";
-      position: absolute;
-      left: 10px;
-      top: 10px;
-      right: 10px;
-      bottom: 10px;
-      border-radius: 14px;
-      pointer-events: none;
-      box-shadow: inset 0 6px 18px rgba(255,255,255,0.06);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      transition: filter 0.25s ease, box-shadow 0.25s ease;
     }
 
     .face:hover {
@@ -762,24 +746,6 @@
       z-index: 999;
     }
 
-    /* music control button */
-    .music-ctrl {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      width: 48px;
-      height: 48px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 20px rgba(120,55,35,0.12);
-      cursor: pointer;
-      z-index: 1200;
-      font-size: 20px;
-    }
-
     .leaf-pop,
     .moon-star {
       position: fixed;
@@ -918,13 +884,94 @@
         font-size: 45px;
       }
     }
+
+    .music-player {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,199,169,0.85);
+      box-shadow: 0 18px 40px rgba(120,55,35,0.18);
+      color: #9d4a31;
+      font-weight: 800;
+    }
+
+    .music-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff9c74, #d94f30);
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 10px 24px rgba(217,79,48,0.32);
+      transition: .25s;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .music-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .music-title {
+      font-size: 14px;
+    }
+
+    .music-sub {
+      font-size: 12px;
+      color: #8a5a49;
+      font-weight: 600;
+    }
+
+    .volume {
+      width: 88px;
+      accent-color: #d94f30;
+    }
+
+    @media(max-width: 600px) {
+      .music-player {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        justify-content: center;
+      }
+
+      .volume {
+        width: 65px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
-  <!-- Background music: place a file named `bg-music.mp3` next to this HTML, or adjust src to your file -->
-  <audio id="bgMusic" loop src="bg-music.mp3"></audio>
-  <div id="musicCtrl" class="music-ctrl" title="Nhạc nền: Bật / Tắt">🔈</div>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="hoa-hoc-tro.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="music-player">
+    <button class="music-btn" id="musicBtn" type="button">▶</button>
+    <div class="music-info">
+      <span class="music-title">Hoa học trò</span>
+      <span class="music-sub">Nhạc nền kỷ niệm</span>
+    </div>
+    <input class="volume" id="volumeControl" type="range" min="0" max="1" step="0.05" value="0.45">
+  </div>
 
   <div class="train" id="train">🚂</div>
   <div class="rail" id="rail"></div>
@@ -1175,6 +1222,31 @@
     const journeyFill = document.getElementById("journeyFill");
     const journeyText = document.getElementById("journeyText");
 
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+    const volumeControl = document.getElementById("volumeControl");
+
+    bgMusic.volume = 0.45;
+
+    musicBtn.addEventListener("click", async () => {
+      try {
+        if (bgMusic.paused) {
+          await bgMusic.play();
+          musicBtn.innerText = "⏸";
+        } else {
+          bgMusic.pause();
+          musicBtn.innerText = "▶";
+        }
+      } catch (error) {
+        alert("Bạn hãy đặt file nhạc tên 'hoa-hoc-tro.mp3' cùng thư mục với file HTML rồi bấm lại nhé!");
+      }
+    });
+
+    volumeControl.addEventListener("input", () => {
+      bgMusic.volume = volumeControl.value;
+    });
+
+
     let currentMood = "🌸 Nhớ";
 
     document.querySelectorAll(".mood-btn").forEach(btn => {
@@ -1412,44 +1484,6 @@
         }
       });
     });
-
-    // Background music handling
-    (function(){
-      const bg = document.getElementById('bgMusic');
-      const ctrl = document.getElementById('musicCtrl');
-      if(!bg || !ctrl) return;
-
-      // try to autoplay muted (most browsers allow muted autoplay)
-      bg.volume = 0.18;
-      bg.muted = true;
-      bg.play().catch(()=>{});
-
-      // toggle play / pause and unmute on button click
-      ctrl.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if(bg.paused){
-          bg.play().then(()=>{
-            bg.muted = false;
-            ctrl.textContent = '🔊';
-          }).catch(()=>{
-            // if play fails, just show paused state
-            ctrl.textContent = '▶️';
-          });
-        } else {
-          bg.pause();
-          ctrl.textContent = '🔈';
-        }
-      });
-
-      // if the user interacts anywhere, unmute if currently playing muted
-      document.addEventListener('click', function once(){
-        if(!bg.paused && bg.muted){
-          bg.muted = false;
-          ctrl.textContent = '🔊';
-        }
-        document.removeEventListener('click', once);
-      });
-    })();
   </script>
 </body>
 </html>
