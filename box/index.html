@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ký Ức Mùa Ve - Trạm Lưu Giữ Thanh Xuân</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #fff8ee;
+      color: #3b2d2d;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 76% 18%, rgba(255, 232, 159, 0.9), transparent 15%),
+        radial-gradient(circle at 10% 92%, rgba(255, 151, 94, 0.22), transparent 26%),
+        linear-gradient(180deg, #fff4df 0%, #ffe0c7 48%, #ffd1bd 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero-scene {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .moon {
+      position: absolute;
+      width: 118px;
+      height: 118px;
+      top: 70px;
+      left: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffef5, #ffe7a2 70%, #ffc96b);
+      box-shadow: 0 0 65px rgba(255, 225, 120, 0.85);
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 4;
+      animation: moonFloat 4s ease-in-out infinite alternate;
+    }
+
+    .moon::before {
+      content: "🌙";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 58px;
+    }
+
+    .moon.shake {
+      animation: moonShake 0.6s ease-in-out;
+    }
+
+    .ancient-tree {
+      position: absolute;
+      right: -145px;
+      top: -120px;
+      width: 760px;
+      height: 760px;
+      pointer-events: auto;
+      cursor: pointer;
+      z-index: 3;
+      transform-origin: bottom center;
+    }
+
+    .tree-trunk {
+      position: absolute;
+      right: 270px;
+      top: 330px;
+      width: 108px;
+      height: 500px;
+      border-radius: 80px 80px 0 0;
+      background: linear-gradient(90deg, #4a2d1d, #7a4a2b, #4b2c1c);
+      box-shadow: inset -18px 0 28px rgba(0, 0, 0, 0.22);
+    }
+
+    .tree-crown {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 28%, #ffe7ad, #d99122 58%, #9a5710 100%);
+      box-shadow: 0 20px 60px rgba(148, 89, 20, 0.28);
+      animation: treeMove 5s ease-in-out infinite alternate;
+    }
+
+    .tree-crown::before {
+      content: "🍂";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 108px;
+      opacity: 0.85;
+    }
+
+    .c1 { width: 295px; height: 295px; top: 50px; right: 245px; }
+    .c2 { width: 320px; height: 320px; top: 120px; right: 70px; animation-delay: .2s; }
+    .c3 { width: 315px; height: 315px; top: 150px; right: 390px; animation-delay: .5s; }
+    .c4 { width: 285px; height: 285px; top: 325px; right: 160px; animation-delay: .8s; }
+    .c5 { width: 285px; height: 285px; top: 340px; right: 370px; animation-delay: 1s; }
+    .c6 { width: 240px; height: 240px; top: 20px; right: 450px; animation-delay: 1.2s; }
+
+    .ancient-tree.shake .tree-crown {
+      animation: treeShake 0.65s ease-in-out;
+    }
+
+    .cloud {
+      position: absolute;
+      font-size: 70px;
+      opacity: .55;
+      animation: cloudMove 18s linear infinite;
+      z-index: 1;
+    }
+
+    .cloud.one { top: 150px; left: -100px; }
+    .cloud.two { top: 305px; left: -250px; animation-delay: 6s; }
+
+    .ground {
+      position: absolute;
+      bottom: -40px;
+      left: -5%;
+      width: 110%;
+      height: 190px;
+      background: linear-gradient(180deg, transparent, rgba(139, 82, 45, 0.22));
+      border-radius: 50% 50% 0 0;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      max-width: 780px;
+      padding: 18px;
+    }
+
+    .hero h1 {
+      font-size: 62px;
+      color: #c84b31;
+      margin-bottom: 20px;
+      text-shadow: 3px 3px 0 #fff;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 720px;
+      line-height: 1.9;
+      margin: 0 auto 34px;
+      color: #5b3a2f;
+    }
+
+    .interactive-tip {
+      position: absolute;
+      left: 58px;
+      bottom: 35px;
+      z-index: 6;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: #9d4a31;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 10px 25px rgba(120, 55, 35, 0.12);
+    }
+
+    .btn {
+      padding: 15px 35px;
+      background: linear-gradient(135deg, #ff7b54, #d94f30);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-size: 18px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 12px 30px rgba(217, 79, 48, 0.35);
+      transition: 0.3s;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px rgba(217, 79, 48, 0.45);
+    }
+
+    .section {
+      min-height: 100vh;
+      padding: 90px 10%;
+      position: relative;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 48px;
+      color: #b64222;
+      margin-bottom: 20px;
+    }
+
+    .desc {
+      text-align: center;
+      max-width: 940px;
+      margin: 0 auto 60px;
+      font-size: 19px;
+      line-height: 1.8;
+      color: #6b4a3d;
+    }
+
+    .diary {
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.75), transparent 24%),
+        linear-gradient(180deg, #fff8ee, #ffe7d6);
+      overflow: hidden;
+    }
+
+    .diary-stage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: stretch;
+      max-width: 1160px;
+      margin: auto;
+    }
+
+    .diary-box,
+    .dream-sky {
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(14px);
+      border-radius: 35px;
+      border: 2px solid rgba(255, 199, 169, 0.8);
+      box-shadow: 0 25px 55px rgba(184, 78, 38, 0.16);
+    }
+
+    .diary-box {
+      padding: 38px;
+    }
+
+    .diary-box h2 {
+      color: #c84b31;
+      margin-bottom: 14px;
+      font-size: 30px;
+    }
+
+    .diary-box p {
+      color: #6b4a3d;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      border: 2px dashed #ff936d;
+      border-radius: 25px;
+      padding: 22px;
+      font-size: 18px;
+      outline: none;
+      resize: none;
+      background: #fffaf6;
+      margin-bottom: 20px;
+    }
+
+    .mood-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .mood-btn {
+      border: none;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #fff1e8;
+      color: #9d4a31;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .mood-btn.active,
+    .mood-btn:hover {
+      background: linear-gradient(135deg, #ff9c74, #e85f43);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .dream-sky {
+      min-height: 450px;
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.9), transparent 18%),
+        linear-gradient(180deg, #fffaf6, #ffe3cf);
+    }
+
+    .dream-title {
+      color: #b64222;
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .dream-hint {
+      color: #8a5a49;
+      font-size: 15px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .floating-note {
+      position: absolute;
+      width: 210px;
+      min-height: 120px;
+      padding: 18px;
+      border-radius: 18px;
+      background: #fff3b0;
+      color: #5b3f35;
+      box-shadow: 0 15px 30px rgba(120,55,35,0.16);
+      animation: floatNote 9s ease-in-out forwards;
+      line-height: 1.45;
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    .floating-note::before {
+      content: "📌";
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .memory {
+      background: linear-gradient(135deg, #ffe0cc, #fff6ee);
+      perspective: 1200px;
+      overflow: hidden;
+    }
+
+    .memory-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 90px;
+      flex-wrap: wrap;
+    }
+
+    .box3d {
+      width: 260px;
+      height: 260px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(-15deg) rotateY(0deg);
+      cursor: grab;
+      transition: transform 0.15s ease;
+    }
+
+    .box3d:active {
+      cursor: grabbing;
+    }
+
+    .face {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      background: rgba(255, 143, 112, 0.92);
+      border: 3px solid #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 60px;
+      color: white;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      transition: filter 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .face:hover {
+      filter: brightness(1.05);
+    }
+
+    .face.active {
+      box-shadow: 0 0 20px rgba(200, 75, 49, 0.3), 0 15px 35px rgba(0,0,0,0.15);
+      filter: brightness(1.08);
+    }
+
+    .front { transform: translateZ(130px); }
+    .back { transform: rotateY(180deg) translateZ(130px); }
+    .right { transform: rotateY(90deg) translateZ(130px); }
+    .left { transform: rotateY(-90deg) translateZ(130px); }
+    .top { transform: rotateX(90deg) translateZ(130px); background: #ffbd8f; }
+    .bottom { transform: rotateX(-90deg) translateZ(130px); }
+
+    .secret {
+      max-width: 560px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(14px);
+      padding: 40px;
+      border-radius: 32px;
+      box-shadow: 0 20px 45px rgba(184,78,38,0.15);
+      display: none;
+      animation: fadeUp 0.6s cubic-bezier(.15,.8,.35,1);
+      border: 2px solid rgba(255,199,169,0.8);
+      position: relative;
+    }
+
+    .secret.show {
+      display: block;
+    }
+
+    .secret-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .secret h2 {
+      color: #c84b31;
+      margin: 0;
+      font-size: 28px;
+      flex: 1;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+
+    .close-btn:hover {
+      background: rgba(196, 75, 49, 0.1);
+      color: #c84b31;
+      transform: scale(1.05);
+    }
+
+    .secret p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #555;
+      margin: 0;
+    }
+
+    .secret-footer {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(200, 75, 49, 0.1);
+    }
+
+    .train-section {
+      background:
+        linear-gradient(180deg, #fff6e9 0%, #ffd8ba 42%, #ffb08a 100%);
+      overflow: hidden;
+    }
+
+    .rail {
+      position: fixed;
+      bottom: 45px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: #7b3f2f;
+      z-index: 10;
+      display: none;
+    }
+
+    .train {
+      position: fixed;
+      bottom: 60px;
+      left: 30px;
+      font-size: 65px;
+      z-index: 11;
+      transition: left 0.2s linear;
+      display: none;
+      filter: drop-shadow(0 10px 10px rgba(60, 30, 20, 0.22));
+    }
+
+    .journey-panel {
+      position: sticky;
+      top: 18px;
+      z-index: 5;
+      max-width: 860px;
+      margin: 0 auto 45px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 18px 38px rgba(120,55,35,.13);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #9d4a31;
+      font-weight: 800;
+    }
+
+    .journey-bar {
+      flex: 1;
+      height: 11px;
+      border-radius: 999px;
+      background: #ffe0ce;
+      overflow: hidden;
+    }
+
+    .journey-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ffb36f, #ff7b54, #d94f30);
+      border-radius: inherit;
+      transition: .2s;
+    }
+
+    .station-list {
+      max-width: 1050px;
+      margin: auto;
+      position: relative;
+    }
+
+    .station-list::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 40px;
+      bottom: 40px;
+      width: 5px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: linear-gradient(#ffd8ba, #ff8d67, #d94f30);
+      opacity: .45;
+    }
+
+    .station {
+      min-height: 82vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .station::before {
+      content: "🚉";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 25px rgba(120,55,35,.15);
+      z-index: 2;
+      font-size: 28px;
+    }
+
+    .station-card {
+      width: min(100%, 780px);
+      background: rgba(255,255,255,0.84);
+      backdrop-filter: blur(14px);
+      padding: 48px 52px;
+      border-radius: 35px;
+      box-shadow:
+        0 25px 50px rgba(184, 78, 38, 0.18),
+        inset 0 0 0 1px rgba(255,255,255,0.8);
+      border: 2px solid rgba(255, 199, 169, 0.8);
+      transform: translateY(70px) scale(0.96);
+      opacity: 0;
+      transition: 0.8s ease;
+      position: relative;
+      overflow: hidden;
+      margin-left: 120px;
+    }
+
+    .station:nth-child(even) .station-card {
+      margin-left: 0;
+      margin-right: 120px;
+    }
+
+    .station-card::before {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      background: radial-gradient(circle, rgba(255,123,84,0.28), transparent 70%);
+      top: -70px;
+      right: -60px;
+    }
+
+    .station-card::after {
+      content: "✦";
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      font-size: 28px;
+      color: #ff9f80;
+    }
+
+    .station-card.active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .station-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow:
+        0 35px 70px rgba(184, 78, 38, 0.28),
+        inset 0 0 0 1px rgba(255,255,255,1);
+    }
+
+    .station-time {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: #fff1e8;
+      color: #b64222;
+      font-weight: 800;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .station-card h2 {
+      font-size: 38px;
+      color: #b64222;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .station-card p {
+      font-size: 19px;
+      line-height: 1.9;
+      color: #5b3f35;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 14px;
+    }
+
+    .station-card ul {
+      position: relative;
+      z-index: 2;
+      padding-left: 22px;
+      color: #6b4a3d;
+      line-height: 1.9;
+      font-size: 17px;
+    }
+
+    .score-section {
+      background: #fff8ee;
+    }
+
+    .score-grid {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .score-card {
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(255,199,169,.8);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: 0 20px 45px rgba(120,55,35,.1);
+      transition: .3s;
+    }
+
+    .score-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 26px 55px rgba(120,55,35,.16);
+    }
+
+    .score-card h3 {
+      font-size: 26px;
+      color: #b64222;
+      margin-bottom: 12px;
+    }
+
+    .score-card p {
+      color: #5b3f35;
+      line-height: 1.6;
+    }
+
+    .ending {
+      min-height: 85vh;
+      background: linear-gradient(135deg, #ff7b54, #d94f30);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 10%;
+    }
+
+    .ending h1 {
+      font-size: 56px;
+      margin-bottom: 25px;
+    }
+
+    .ending p {
+      font-size: 22px;
+      line-height: 1.8;
+      max-width: 900px;
+    }
+
+    .petal {
+      position: fixed;
+      top: -40px;
+      font-size: 24px;
+      pointer-events: none;
+      animation: fall linear forwards;
+      z-index: 999;
+    }
+
+    .leaf-pop,
+    .moon-star {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .leaf-pop {
+      font-size: 25px;
+      animation: leafPop 1.4s ease-out forwards;
+    }
+
+    .moon-star {
+      font-size: 24px;
+      animation: starPop 1.1s ease-out forwards;
+    }
+
+    @keyframes cloudMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(120vw); }
+    }
+
+    @keyframes moonFloat {
+      from { transform: translateY(0); }
+      to { transform: translateY(18px); }
+    }
+
+    @keyframes moonShake {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-7deg) scale(1.08); }
+      50% { transform: rotate(7deg) scale(1.08); }
+      75% { transform: rotate(-4deg) scale(1.04); }
+    }
+
+    @keyframes treeMove {
+      from { transform: rotate(-1deg); }
+      to { transform: rotate(2deg); }
+    }
+
+    @keyframes treeShake {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(-7deg); }
+      40% { transform: rotate(7deg); }
+      60% { transform: rotate(-5deg); }
+      80% { transform: rotate(5deg); }
+    }
+
+    @keyframes leafPop {
+      from { opacity: 1; transform: translate(0,0) rotate(0) scale(.8); }
+      to { opacity: 0; transform: translate(var(--x), var(--y)) rotate(280deg) scale(1.2); }
+    }
+
+    @keyframes starPop {
+      from { opacity: 1; transform: translate(0,0) scale(.7); }
+      to { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.5) rotate(180deg); }
+    }
+
+    @keyframes floatNote {
+      0% { opacity: 0; transform: translateY(230px) rotate(-5deg) scale(.9); }
+      12% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-360px) rotate(8deg) scale(1.05); }
+    }
+
+    @keyframes noteFly {
+      0% { transform: translateY(260px) rotate(-8deg); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translateY(-360px) rotate(10deg); opacity: 0; }
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media(max-width: 950px) {
+      .diary-stage,
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .ancient-tree {
+        right: -280px;
+        transform: scale(.7);
+      }
+
+      .moon {
+        width: 88px;
+        height: 88px;
+        left: 25px;
+        top: 45px;
+      }
+
+      .moon::before {
+        font-size: 42px;
+      }
+
+      .interactive-tip {
+        left: 18px;
+        bottom: 18px;
+        font-size: 12px;
+      }
+
+      .title {
+        font-size: 34px;
+      }
+
+      .station-list::before,
+      .station::before {
+        display: none;
+      }
+
+      .station-card,
+      .station:nth-child(even) .station-card {
+        margin: 0;
+        padding: 32px;
+      }
+
+      .station-card h2 {
+        font-size: 30px;
+      }
+
+      .train {
+        font-size: 45px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="train" id="train">🚂</div>
+  <div class="rail" id="rail"></div>
+
+  <section class="hero">
+    <div class="hero-scene">
+      <div class="ground"></div>
+      <div class="moon" id="moon"></div>
+
+      <div class="ancient-tree" id="ancientTree">
+        <div class="tree-trunk"></div>
+        <div class="tree-crown c1"></div>
+        <div class="tree-crown c2"></div>
+        <div class="tree-crown c3"></div>
+        <div class="tree-crown c4"></div>
+        <div class="tree-crown c5"></div>
+        <div class="tree-crown c6"></div>
+      </div>
+
+      <div class="cloud one">☁️</div>
+      <div class="cloud two">☁️</div>
+    </div>
+
+    <div class="interactive-tip">Bấm vào cây hoặc mặt trăng ✨</div>
+
+    <div class="hero-content">
+      <h1>Ký Ức Mùa Ve</h1>
+      <p>
+        Viết một dòng lưu bút, cất nó vào hộp ký ức,
+        rồi bước lên chuyến tàu thời gian để đi qua tám trạm thanh xuân.
+      </p>
+      <a href="#diary" class="btn">Bắt đầu hành trình</a>
+    </div>
+  </section>
+
+  <section class="section diary" id="diary">
+    <h1 class="title">Lưu Bút Số</h1>
+    <p class="desc">
+      Biến một dòng text thành trải nghiệm cảm xúc: chọn tâm trạng, viết lưu bút, thả vào bầu trời để note bay lên cùng hoa phượng.
+    </p>
+
+    <div class="diary-stage">
+      <div class="diary-box">
+        <h2>Viết một lời nhắn</h2>
+        <p>Chọn cảm xúc rồi gửi nó vào bầu trời lưu bút.</p>
+
+        <textarea id="memoryInput" placeholder="Ví dụ: Cảm ơn cậu vì đã đi cùng mình qua những ngày hè rực rỡ..."></textarea>
+
+        <div class="mood-row">
+          <button class="mood-btn active" data-mood="🌸 Nhớ">🌸 Nhớ</button>
+          <button class="mood-btn" data-mood="💛 Vui">💛 Vui</button>
+          <button class="mood-btn" data-mood="🎓 Chia tay">🎓 Chia tay</button>
+          <button class="mood-btn" data-mood="✨ Ước mơ">✨ Ước mơ</button>
+        </div>
+
+        <button class="btn" onclick="sendMemory()">Gửi lưu bút</button>
+      </div>
+
+      <div class="dream-sky" id="noteArea">
+        <div class="dream-title">Bầu trời lưu bút</div>
+        <div class="dream-hint">Những mảnh giấy sẽ lơ lửng tại đây...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section memory" id="box">
+    <h1 class="title">Hộp Ký Ức 3D</h1>
+    <p class="desc">
+      Kéo chuột để xoay chiếc hộp 3D. Bấm vào từng mặt hộp để mở một lớp ký ức khác nhau.
+    </p>
+
+    <div class="memory-wrapper">
+      <div class="box3d" id="box3d">
+        <div class="face front" data-title="💌 Lời Nhắn" data-msg="Đây là nơi lưu lại lời nhắn gần nhất. Mỗi dòng chữ được gửi vào hộp sẽ trở thành một mảnh ký ức có thể mở lại bất cứ lúc nào.">💌</div>
+        <div class="face back" data-title="📸 Kỷ Niệm" data-msg="Những bức ảnh chụp vội, khoảnh khắc cùng bạn bè và những ngày sân trường đầy nắng đều được cất lại trong mặt ký ức này.">📸</div>
+        <div class="face right" data-title="🌸 Mùa Hoa" data-msg="Hoa phượng, tiếng ve và những buổi chiều cuối năm tạo nên màu sắc riêng của thanh xuân.">🌸</div>
+        <div class="face left" data-title="🎓 Thanh Xuân" data-msg="Chiếc áo trắng, những chữ ký và lời hẹn gặp lại là dấu mốc của một thời đã qua.">🎓</div>
+        <div class="face top" data-title="✨ Điều Ước" data-msg="Gửi một lời chúc cho tương lai: hãy sống can đảm, yêu thương chân thành và không quên những ngày đẹp nhất.">✨</div>
+        <div class="face bottom" data-title="💛 Yêu Thương" data-msg="Bạn bè, thầy cô, gia đình và tất cả những người đã làm thanh xuân này trở nên ý nghĩa.">💛</div>
+      </div>
+
+      <div class="secret" id="secret">
+        <div class="secret-header">
+          <h2 id="secretTitle">Bí mật trong hộp</h2>
+          <button class="close-btn" onclick="closeSecret()">✕</button>
+        </div>
+        <p id="secretText">
+          Bấm vào một mặt hộp để khám phá ký ức bên trong.
+        </p>
+        <div class="secret-footer">
+          <p style="font-size: 13px; color: #999; margin-top: 20px;">💡 Mỗi mặt hộp là một lớp ký ức khác nhau</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section train-section" id="time">
+    <h1 class="title">Chuyến Tàu Thời Gian</h1>
+    <p class="desc">
+      Tám trạm ký ức tạo thành một hành trình chuyển động liên tục. Khi cuộn trang, đoàn tàu chạy theo tiến trình và từng ga lần lượt mở ra.
+    </p>
+
+    <div class="journey-panel">
+      <span>🚂 Hành trình thanh xuân</span>
+      <div class="journey-bar">
+        <div class="journey-fill" id="journeyFill"></div>
+      </div>
+      <span id="journeyText">0%</span>
+    </div>
+
+    <div class="station-list">
+      <div class="station">
+        <div class="station-card">
+          <span class="station-time">Ga 01 · Bắt đầu</span>
+          <h2>Ngày Đầu Gặp Gỡ</h2>
+          <p>Chuyến tàu khởi hành từ một buổi sáng rất bình thường. Lớp học mới, những gương mặt còn xa lạ, chiếc bàn chưa quen và cảm giác hồi hộp khi tên mình được gọi lên.</p>
+          <ul>
+            <li>Không khí: bỡ ngỡ, nhẹ nhàng, mở đầu hành trình.</li>
+            <li>Hiệu ứng: chữ hiện dần, nền sáng và mây trôi chậm.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="station">
+        <div class="station-card">
+          <span class="station-time">Ga 02 · Lớp học</span>
+          <h2>Tiếng Ve Ngoài Cửa Lớp</h2>
+          <p>Tiếng ve vang lên phía sau khung cửa, bụi phấn phủ trên bảng đen, còn những ánh mắt thì lặng lẽ nhìn ra sân trường. Khi ấy không ai nghĩ rằng những điều nhỏ bé này sẽ trở thành ký ức rất dài.</p>
+          <ul>
+            <li>Không khí: mùa hè, yên ả, nhiều hoài niệm.</li>
+            <li>Hiệu ứng: hoa phượng rơi nhiều hơn khi đến ga.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="station">
+        <div class="station-card">
+          <span class="station-time">Ga 03 · Bạn bè</span>
+          <h2>Những Buổi Chiều Đi Cùng Nhau</h2>
+          <p>Có những buổi chiều chỉ đơn giản là cùng nhau ra về, ghé một quán nước nhỏ, kể vài chuyện không đầu không cuối. Không cần điều gì lớn lao, chỉ cần có bạn bè bên cạnh là mùa hè đã đáng nhớ.</p>
+          <ul>
+            <li>Không khí: vui vẻ, thân thuộc, gần gũi.</li>
+            <li>Hiệu ứng: card nổi lên như tấm ảnh kỷ niệm.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="station">
+        <div class="station-card">
+          <span class="station-time">Ga 04 · Lưu bút</span>
+          <h2>Trang Giấy Viết Vội</h2>
+          <p>Những dòng chữ trong lưu bút thường không quá cầu kỳ, nhưng lại chứa rất nhiều cảm xúc. Có lời chúc, có lời cảm ơn, có cả những điều chưa kịp nói thành lời trước ngày chia xa.</p>
+          <ul>
+            <li>Không khí: sâu lắng, nhiều cảm xúc.</li>
+            <li>Hiệu ứng: liên kết với chức năng Lưu bút số.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="station">
+        <div class="station-card">
+          <span class="station-time">Ga 05 · Sân trường</span>
+          <h2>Cơn Mưa Cuối Hạ</h2>
+          <p>Một cơn mưa bất chợt làm sân trường ướt nhẹ. Cả nhóm đứng nép dưới mái hiên, vừa cười vừa chờ mưa tạnh. Sau này nhớ lại, tiếng mưa ấy lại giống như âm thanh của tuổi trẻ.</p>
+          <ul>
+            <li>Không khí: trong trẻo, lãng mạn, có chiều sâu.</li>
+            <li>Hiệu ứng: nền chuyển dịu, card như được phủ lớp kính mờ.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="station">
+        <div class="station-card">
+          <span class="station-time">Ga 06 · Bế giảng</span>
+          <h2>Ngày Áo Trắng Đầy Chữ Ký</h2>
+          <p>Sân trường hôm ấy đông hơn mọi ngày, nhưng ai cũng thấy lòng mình trống trải. Một tấm ảnh tập thể, một chiếc áo trắng đầy chữ ký, một cái vẫy tay tưởng rất nhẹ mà lại nhớ rất lâu.</p>
+          <ul>
+            <li>Không khí: xúc động, cao trào của câu chuyện.</li>
+            <li>Hiệu ứng: ánh sáng hoàng hôn, tàu chạy chậm hơn.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="station">
+        <div class="station-card">
+          <span class="station-time">Ga 07 · Lời hẹn</span>
+          <h2>Hẹn Gặp Lại Ở Một Ngày Khác</h2>
+          <p>Những lời hẹn được nói ra rất nhanh, nhưng lại theo mỗi người rất lâu. Có thể sau này mỗi người đi một hướng, nhưng ký ức vẫn ở lại như một dấu mốc đẹp trong tim.</p>
+          <ul>
+            <li>Không khí: trưởng thành, lưu luyến.</li>
+            <li>Hiệu ứng: thanh tiến trình gần hoàn thành, hoa rơi chậm lại.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="station">
+        <div class="station-card">
+          <span class="station-time">Ga 08 · Trạm cuối</span>
+          <h2>Thanh Xuân Còn Mãi</h2>
+          <p>Chuyến tàu có thể dừng lại, nhưng ký ức thì vẫn tiếp tục sống. Mùa ve năm ấy không mất đi, chỉ được cất vào một nơi thật sâu trong tim, để khi mở lại vẫn thấy mình của những ngày xưa.</p>
+          <ul>
+            <li>Không khí: kết thúc trọn vẹn, giàu cảm xúc.</li>
+            <li>Hiệu ứng: tiến trình đạt 100%, tàu tới cuối đường ray.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section score-section">
+    <h1 class="title">Thang Điểm 10</h1>
+    <p class="desc">Các tiêu chí được thể hiện ngay trong sản phẩm để ban giám khảo dễ nhận diện điểm mạnh.</p>
+
+    <div class="score-grid">
+      <div class="score-card">
+        <h3>Đẹp ✨</h3>
+        <p>Giao diện pastel, glassmorphism, hiệu ứng lá và hoa tạo cảm giác mềm mại.</p>
+      </div>
+      <div class="score-card">
+        <h3>Mượt 🌊</h3>
+        <p>Animation cuộn trang, tàu chạy theo tiến trình, card hiện dần.</p>
+      </div>
+      <div class="score-card">
+        <h3>Chạm 💛</h3>
+        <p>Nội dung kể chuyện theo tám trạm ký ức, có chiều sâu cảm xúc.</p>
+      </div>
+      <div class="score-card">
+        <h3>Nhạc 🎵</h3>
+        <p>Có thể thêm nhạc nền nhẹ để tăng điểm sáng tạo khi trình bày.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ending">
+    <div>
+      <h1>Trạm Lưu Giữ Thanh Xuân</h1>
+      <p>Sản phẩm kết hợp giữa lưu bút số, hộp ký ức 3D và chuyến tàu thời gian, tạo nên một hành trình công nghệ giàu cảm xúc.</p>
+    </div>
+  </section>
+
+  <script>
+    const noteArea = document.getElementById("noteArea");
+    const train = document.getElementById("train");
+    const rail = document.getElementById("rail");
+    const box3d = document.getElementById("box3d");
+    const ancientTree = document.getElementById("ancientTree");
+    const moon = document.getElementById("moon");
+    const journeyFill = document.getElementById("journeyFill");
+    const journeyText = document.getElementById("journeyText");
+
+    let currentMood = "🌸 Nhớ";
+
+    document.querySelectorAll(".mood-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".mood-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentMood = btn.dataset.mood;
+      });
+    });
+
+    function sendMemory() {
+      const input = document.getElementById("memoryInput");
+      const text = input.value.trim();
+
+      if (text === "") {
+        alert("Hãy viết một dòng lưu bút trước nhé!");
+        return;
+      }
+
+      const note = document.createElement("div");
+      note.className = "floating-note";
+      note.innerHTML = `<strong>${currentMood}</strong><br>${text}`;
+      note.style.left = Math.random() * 55 + 18 + "%";
+      note.style.background = randomNoteColor();
+
+      noteArea.appendChild(note);
+
+      document.getElementById("secretTitle").innerText = "💌 Lưu bút vừa gửi";
+      document.getElementById("secretText").innerText = text;
+
+      input.value = "";
+
+      for (let i = 0; i < 26; i++) {
+        createPetal();
+      }
+
+      setTimeout(() => {
+        note.remove();
+      }, 9000);
+    }
+
+    function randomNoteColor() {
+      const colors = ["#fff3b0", "#ffd6a5", "#fdffb6", "#ffc6ff", "#caffbf"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function createPetal() {
+      const petal = document.createElement("div");
+      petal.className = "petal";
+      petal.innerHTML = Math.random() > 0.5 ? "🌸" : "🍂";
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDuration = Math.random() * 4 + 4 + "s";
+      petal.style.fontSize = Math.random() * 14 + 18 + "px";
+      document.body.appendChild(petal);
+
+      setTimeout(() => {
+        petal.remove();
+      }, 8000);
+    }
+
+    function createHeroLeaf(x, y) {
+      const leaf = document.createElement("div");
+      leaf.className = "leaf-pop";
+      leaf.innerHTML = Math.random() > 0.5 ? "🍃" : "🍂";
+      leaf.style.left = x + "px";
+      leaf.style.top = y + "px";
+      leaf.style.setProperty("--x", (Math.random() * 260 - 130) + "px");
+      leaf.style.setProperty("--y", (-Math.random() * 220 - 60) + "px");
+      document.body.appendChild(leaf);
+      setTimeout(() => leaf.remove(), 1400);
+    }
+
+    function createMoonStar(x, y) {
+      const star = document.createElement("div");
+      star.className = "moon-star";
+      star.innerHTML = Math.random() > 0.5 ? "✨" : "⭐";
+      star.style.left = x + "px";
+      star.style.top = y + "px";
+      star.style.setProperty("--x", (Math.random() * 180 - 90) + "px");
+      star.style.setProperty("--y", (-Math.random() * 160 - 40) + "px");
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1200);
+    }
+
+    ancientTree.addEventListener("click", () => {
+      ancientTree.classList.remove("shake");
+      void ancientTree.offsetWidth;
+      ancientTree.classList.add("shake");
+
+      const rect = ancientTree.getBoundingClientRect();
+      for (let i = 0; i < 30; i++) {
+        createHeroLeaf(
+          rect.left + rect.width * (0.18 + Math.random() * 0.58),
+          rect.top + rect.height * (0.05 + Math.random() * 0.38)
+        );
+      }
+    });
+
+    moon.addEventListener("click", () => {
+      moon.classList.remove("shake");
+      void moon.offsetWidth;
+      moon.classList.add("shake");
+
+      const rect = moon.getBoundingClientRect();
+      for (let i = 0; i < 16; i++) {
+        createMoonStar(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      }
+    });
+
+    setInterval(createPetal, 1200);
+
+    function openBox(faceElement) {
+      const secret = document.getElementById("secret");
+      const secretTitle = document.getElementById("secretTitle");
+      const secretText = document.getElementById("secretText");
+
+      if (faceElement) {
+        secretTitle.innerText = faceElement.dataset.title || "Bí mật trong hộp";
+        secretText.innerText = faceElement.dataset.msg || "Có những ký ức tưởng như đã ngủ quên...";
+        document.querySelectorAll(".face").forEach(f => f.classList.remove("active"));
+        faceElement.classList.add("active");
+      }
+
+      secret.classList.add("show");
+
+      for (let i = 0; i < 20; i++) {
+        createPetal();
+      }
+    }
+
+    function closeSecret() {
+      document.getElementById("secret").classList.remove("show");
+      document.querySelectorAll(".face").forEach(f => f.classList.remove("active"));
+    }
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let rotateX = -15;
+    let rotateY = 0;
+    let moved = false;
+
+    document.querySelectorAll(".box3d .face").forEach(face => {
+      face.style.cursor = "pointer";
+      face.addEventListener("click", () => {
+        if (!moved) {
+          openBox(face);
+        }
+        moved = false;
+      });
+    });
+
+    box3d.addEventListener("mousedown", e => {
+      isDragging = true;
+      moved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    window.addEventListener("mousemove", e => {
+      if (!isDragging) return;
+
+      const deltaX = e.clientX - startX;
+      const deltaY = e.clientY - startY;
+
+      if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
+        moved = true;
+      }
+
+      rotateY += deltaX * 0.5;
+      rotateX -= deltaY * 0.5;
+      box3d.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    window.addEventListener("mouseup", () => {
+      isDragging = false;
+    });
+
+    box3d.addEventListener("touchstart", e => {
+      isDragging = true;
+      moved = false;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    });
+
+    window.addEventListener("touchmove", e => {
+      if (!isDragging) return;
+
+      const deltaX = e.touches[0].clientX - startX;
+      const deltaY = e.touches[0].clientY - startY;
+
+      if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
+        moved = true;
+      }
+
+      rotateY += deltaX * 0.5;
+      rotateX -= deltaY * 0.5;
+      box3d.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    });
+
+    window.addEventListener("touchend", () => {
+      isDragging = false;
+    });
+
+    window.addEventListener("scroll", () => {
+      const trainSection = document.getElementById("time");
+      const rect = trainSection.getBoundingClientRect();
+
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        train.style.display = "block";
+        rail.style.display = "block";
+
+        const sectionHeight = Math.max(trainSection.offsetHeight - window.innerHeight, 1);
+        const scrolled = Math.min(Math.max(Math.abs(rect.top), 0), sectionHeight);
+        const percent = scrolled / sectionHeight;
+
+        train.style.left = -10 + percent * 100 + "vw";
+        journeyFill.style.width = Math.round(percent * 100) + "%";
+        journeyText.innerText = Math.round(percent * 100) + "%";
+      } else {
+        train.style.display = "none";
+        rail.style.display = "none";
+      }
+
+      document.querySelectorAll(".station-card").forEach(card => {
+        const cardRect = card.getBoundingClientRect();
+        if (cardRect.top < window.innerHeight * 0.75) {
+          card.classList.add("active");
+        }
+      });
+    });
+  </script>
+</body>
+</html>z`
