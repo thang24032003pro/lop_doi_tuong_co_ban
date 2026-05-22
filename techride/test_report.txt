@@ -1,0 +1,25 @@
+--- BÁO CÁO HỆ THỐNG QUẢN LÝ XE TECHRIDE ---
+Vehicle {
+  id: 'V01',
+  driverName: 'Nguyen Van A',
+  vehicleType: 'Motorbike',
+  status: 'Active'
+}
+Vehicle {
+  id: 'V02',
+  driverName: 'Tran Thi B',
+  vehicleType: 'Car',
+  status: 'Active'
+}
+Vehicle {
+  id: 'V03',
+  driverName: 'Pham Van C',
+  vehicleType: 'Motorbike',
+  status: 'Active'
+}
+--------------------------------------------
+Cuốc xe 10km của Nguyen Van A (Motorbike): 50000 VND
+Cuốc xe 10km của Tran Thi B (Car): 100000 VND
+--------------------------------------------
+[HỆ THỐNG]: Xe V02 đóng tài xế Tran Thi B đã chuyển sang trạng thái: Maintenance
+[Kiểm tra độc lập] Trạng thái hiện tại của Xe 1: Active
