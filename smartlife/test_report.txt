@@ -1,0 +1,26 @@
+[HỆ THỐNG]: Thiết bị Đèn phòng khách vừa được kích hoạt thành công với ID: id-4f7g2h8j1-1716369723000
+[HỆ THỐNG]: Thiết bị Điều hòa phòng ngủ vừa được kích hoạt thành công với ID: id-9a3b5c7d2-1716369723005
+[HỆ THỐNG]: Thiết bị Loa nhà bếp vừa được kích hoạt thành công với ID: id-1e2f3g4h5-1716369723010
+
+--- BÁO CÁO TRẠNG THÁI THIẾT BỊ SAU XUẤT XƯERRNG ---
+SmartDevice {
+  deviceId: 'id-4f7g2h8j1-1716369723000',
+  deviceName: 'Đèn phòng khách',
+  type: 'Light',
+  isOn: false,
+  battery: 100
+}
+SmartDevice {
+  deviceId: 'id-9a3b5c7d2-1716369723005',
+  deviceName: 'Điều hòa phòng ngủ',
+  type: 'AirConditioner',
+  isOn: false,
+  battery: 100
+}
+SmartDevice {
+  deviceId: 'id-1e2f3g4h5-1716369723010',
+  deviceName: 'Loa nhà bếp',
+  type: 'Speaker',
+  isOn: false,
+  battery: 100
+}
