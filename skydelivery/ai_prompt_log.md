@@ -1,0 +1,4 @@
+Prompt 1: Trong lập trình, khi tôi có 100 đối tượng giống nhau, tôi nên dùng cấu trúc dữ liệu nào để lưu trữ chúng nhằm dễ dàng tìm kiếm và cập nhật nhất? Phân tích ưu nhược điểm.
+Prompt 2: Để tìm một Drone đang rảnh trong mảng 50 Drones, tôi nên dùng vòng lặp for thông thường, hay dùng hàm .find() của mảng? Ưu nhược điểm về hiệu năng và độ sạch của code (clean code) giữa 2 cách này là gì?
+Prompt 3: Khi tôi tìm được Drone rảnh và đổi status của nó thành 'delivering' ở trong hàm, tại sao khi console.log lại mảng ban đầu, trạng thái của Drone đó cũng bị thay đổi theo? Hãy giải thích cơ chế tham chiếu (Reference) của Object trong Mảng.
+Prompt 4: Hãy tạo cho tôi một mảng JSON tên là mockDrones gồm 20 đối tượng. Mỗi đối tượng có cấu trúc {id, battery, status}. Thuộc tính status nhận ngẫu nhiên 1 trong 3 giá trị: 'available', 'delivering', 'charging'. Thuộc tính battery random từ 0 đến 100.

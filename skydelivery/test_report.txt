@@ -1,0 +1,30 @@
+--- BẮT ĐẦU ĐIỀU PHỐI ĐƠN HÀNG THỬ NGHIỆM ---
+[ĐIỀU PHỐI SUCCESS]: Đã giao đơn hàng cho Drone D01 (Pin: 89%)
+[ĐIỀU PHỐI SUCCESS]: Đã giao đơn hàng cho Drone D05 (Pin: 73%)
+[ĐIỀU PHỐI SUCCESS]: Đã giao đơn hàng cho Drone D07 (Pin: 61%)
+[ĐIỀU PHỐI SUCCESS]: Đã giao đơn hàng cho Drone D10 (Pin: 82%)
+[ĐIỀU PHỐI SUCCESS]: Đã giao đơn hàng cho Drone D13 (Pin: 91%)
+
+--- TRẠNG THÁI DANH SÁCH DRONE SAU KHI ĐIỀU PHỐI ---
+[
+  Drone { id: 'D01', battery: 89, status: 'delivering' },
+  Drone { id: 'D02', battery: 12, status: 'available' },
+  Drone { id: 'D03', battery: 45, status: 'delivering' },
+  Drone { id: 'D04', battery: 95, status: 'charging' },
+  Drone { id: 'D05', battery: 73, status: 'delivering' },
+  Drone { id: 'D06', battery: 18, status: 'charging' },
+  Drone { id: 'D07', battery: 61, status: 'delivering' },
+  Drone { id: 'D08', battery: 50, status: 'delivering' },
+  Drone { id: 'D09', battery: 5, status: 'available' },
+  Drone { id: 'D10', battery: 82, status: 'delivering' },
+  Drone { id: 'D11', battery: 33, status: 'charging' },
+  Drone { id: 'D12', battery: 67, status: 'delivering' },
+  Drone { id: 'D13', battery: 91, status: 'delivering' },
+  Drone { id: 'D14', battery: 22, status: 'available' },
+  Drone { id: 'D15', battery: 15, status: 'charging' },
+  Drone { id: 'D16', battery: 54, status: 'available' },
+  Drone { id: 'D17', battery: 40, status: 'delivering' },
+  Drone { id: 'D18', battery: 78, status: 'available' },
+  Drone { id: 'D19', battery: 11, status: 'available' },
+  Drone { id: 'D20', battery: 85, status: 'available' }
+]
