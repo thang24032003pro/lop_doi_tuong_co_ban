@@ -1,0 +1,3 @@
+Prompt 1: Hãy giải thích cho tôi bằng một ví dụ thực tế: Sự khác biệt giữa Class (Lớp) và Instance (Đối tượng) là gì? Tại sao nói Class chỉ là bản thiết kế?
+Prompt 2: Trong Class Hero, nếu tôi muốn thêm một tính năng là 'Hồi máu' (Heal), tôi nên khai báo nó như một Property (thuộc tính) hay một Method (phương thức)? Giải thích tại sao?
+Prompt 3: Khi tôi gọi hàm attack() bên trong Class, tôi gặp lỗi biến HP không tồn tại. Từ khóa 'this' có vai trò gì trong trường hợp này để trỏ đúng vào máu của nhân vật đang bị đánh?

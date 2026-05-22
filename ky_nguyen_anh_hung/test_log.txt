@@ -1,0 +1,10 @@
+--- TRẬN ĐẤU BẮT ĐẦU ---
+Trạng thái ban đầu: Arthur (1000 HP) VS Valhein (80 HP)
+------------------------
+Arthur tấn công Valhein gây 50 sát thương.
+Valhein còn lại 30 HP.
+[Kiểm tra độc lập] Máu của Arthur hiện tại: 1000 HP
+------------------------
+Arthur tấn công Valhein gây 50 sát thương.
+Valhein còn lại 0 HP.
+☠️ Valhein đã gục ngã!
