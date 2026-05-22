@@ -1,0 +1,30 @@
+--- KẾT QUẢ KHỞI TẠO HỆ THỐNG NHÂN VẬT CYBERWARRIORS ---
+[CHARACTER]: Neo | Hệ phái: Hacker | Cấp độ: 1 | HP: 100 | Trạng thái: Còn sống
+[CHARACTER]: Trinity | Hệ phái: Gunner | Cấp độ: 1 | HP: 100 | Trạng thái: Còn sống
+[CHARACTER]: Unknown Warrior | Hệ phái: Novice | Cấp độ: 1 | HP: 100 | Trạng thái: Còn sống
+
+--- CHI TIẾT CẤU TRÚC ĐỐI TƯỢNG TRÊN BỘ NHỚ ---
+Character {
+  name: 'Neo',
+  classType: 'Hacker',
+  level: 1,
+  hp: 100,
+  isAlive: true,
+  inventory: []
+}
+Character {
+  name: 'Trinity',
+  classType: 'Gunner',
+  level: 1,
+  hp: 100,
+  isAlive: true,
+  inventory: []
+}
+Character {
+  name: 'Unknown Warrior',
+  classType: 'Novice',
+  level: 1,
+  hp: 100,
+  isAlive: true,
+  inventory: []
+}
