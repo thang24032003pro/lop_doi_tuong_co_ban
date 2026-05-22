@@ -1,6 +1,7 @@
 class Circle {
     constructor(radius) {
         this.radius = radius;
+        this.color = "red";
     }
 
     getRadius() {
@@ -12,7 +13,12 @@ class Circle {
     }
 }
 
-let circle = new Circle(2);
-let radius = circle.getRadius();
-let area = circle.getArea();
-alert("radius: " + radius + "; area: " + area);
+let circle1 = new Circle(2);
+let radius1 = circle1.getRadius();
+let area1 = circle1.getArea();
+console.log("Radius: " + radius1 + "; Area: " + area1);
+
+let circle2 = new Circle(5);
+let radius2 = circle2.getRadius();
+let area2 = circle2.getArea();
+console.log("Radius: " + radius2 + "; Area: " + area2);
